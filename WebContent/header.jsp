@@ -8,10 +8,10 @@ SPMS(Simple Project Menagememt System)
 	<%
 	if(member.getEmail() != null) {
 	%>
-	<span style="float:right;"><%=member.getName() %>님, 반갑습니다. <a style="color:white;" href="<%=request.getContextPath()%>/auth/logout">로그아웃</a>
+	<span style="float:right;"><%=member.getName() %>님, 반갑습니다. <a style="color:white;" href="<%=request.getContextPath()%>/auth/logout.do">로그아웃</a>
 	</span> 
 	<%}else{ %>
-	<span style="float:right;"><a style="color:white;" href="<%=request.getContextPath()%>/auth/login">로그인</a>
+	<span style="float:right;"><a style="color:white;" href="<%=request.getContextPath()%>/auth/login.do">로그인</a>
 	</span>
 	<%} %>
 </div>

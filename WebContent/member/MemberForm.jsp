@@ -9,11 +9,11 @@
 <body>
 	<jsp:include page="/header.jsp"/>
 	<h1>회원 등록</h1>
-	<form action='add' method='post'>
+	<form action='add.do' method='post'>
 		이름 : <input type='text' name='name' /><br>
 		이메일 : <input type='text' name='email' /><br>
 		비밀번호 : <input type='password' name='password' /><br>
-	<input type='submit' value='추가'/> <input type='reset' value='취소'/> <input type='button' value='리스트로' onclick='location.href="list"'/>
+	<input type='submit' value='추가'/> <input type='reset' value='취소'/> <input type='button' value='리스트로' onclick='location.href="list.do"'/>
 	</form>
 	<jsp:include page="/tail.jsp"/>
 </body>

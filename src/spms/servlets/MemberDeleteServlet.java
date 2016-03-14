@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import spms.dao.MemberDao;
+import spms.vo.Member;
 
 @WebServlet("/member/delete")
 public class MemberDeleteServlet extends HttpServlet {
@@ -26,14 +27,13 @@ public class MemberDeleteServlet extends HttpServlet {
 			ServletContext sc = this.getServletContext();
 			
 			MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
-			int result = dao.delete(Integer.parseInt(req.getParameter("no")));
+			System.out.println(req.getAttribute("no"));
+			int result = dao.delete(Integer.parseInt((String)req.getAttribute("no")));
 			if(result == 0) throw new Exception();
-			resp.sendRedirect("list");
+			req.setAttribute("viewUrl", "request:list.do");
 			
 		}catch(Exception e){
-			req.setAttribute("error", e);
-			RequestDispatcher rd = req.getRequestDispatcher("/Error.jsp");
-			rd.forward(req, resp);
+			throw new ServletException(e);
 		}
 	}
 

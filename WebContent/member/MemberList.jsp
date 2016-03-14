@@ -27,7 +27,7 @@
 	}
 	%>
 	</table>
-	<p><a href='add'>신규 회원</a></p>
+	<p><a href='add.do'>신규 회원</a></p>
 	<jsp:include page="/tail.jsp"/>
 </body>
 </html>

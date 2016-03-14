@@ -24,37 +24,31 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		resp.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher rd = req.getRequestDispatcher("/auth/LogInForm.jsp");
-		rd.forward(req, resp);
+		req.setAttribute("viewUrl", "/auth/LogInForm.jsp");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
 		
-		Member member = new Member();
+		Member member = (Member)req.getAttribute("member");
 		
 		try{
 			ServletContext sc = this.getServletContext();
 			MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
-			member = dao.exist(req.getParameter("email"), req.getParameter("password"));
+			
+			member = dao.exist(member.getEmail(), member.getPassword());
 			
 			if(member != null){
 				HttpSession session = req.getSession();
 				session.setAttribute("member", member);
-				resp.sendRedirect("../member/list");
+				req.setAttribute("viewUrl", "redirect:../member/list.do");
 			}else{
-				RequestDispatcher rd = req.getRequestDispatcher("/auth/LogInFail.jsp");
-				rd.forward(req, resp);
+				req.setAttribute("viewUrl", "/auth/LogInFail.jsp");
 			}
 			
 		}catch(Exception e){
-			req.setAttribute("error", e);
-			RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
-			rd.forward(req, resp);
+			throw new ServletException(e);
 		}
 	}
 }

@@ -27,22 +27,17 @@ public class MemberListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");
 		
 		try{
 			ServletContext sc = this.getServletContext();
 			MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
 			ArrayList<Member> members = dao.selectList();
 			request.setAttribute("members", members);
-			RequestDispatcher rd = request.getRequestDispatcher("/member/MemberList.jsp");
-			rd.include(request, response);
+			String viewUrl = "/member/MemberList.jsp";
+			request.setAttribute("viewUrl", viewUrl);
 			
 		}catch(Exception e){
-			request.setAttribute("error", e);
-			e.printStackTrace();
-			RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
-			rd.forward(request, response);
+			throw new ServletException(e);
 		}
 	}
 }
